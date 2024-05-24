@@ -22,7 +22,7 @@ export const vSchemaToDefineProps = (schema) => {
       prop.default = fragment.default;
     }
     if (fragment.enum) {
-      prop[key].validator = (value) => [...fragment.enum].includes(value);
+      prop.validator = (value) => [...fragment.enum].includes(value);
     }
     props[key] = prop;
   });
