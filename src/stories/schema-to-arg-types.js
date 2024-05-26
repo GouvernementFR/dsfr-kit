@@ -6,6 +6,12 @@ export const schemaToArgTypes = (schema) => {
       type: {
         value: fragment.type,
         required: fragment.required
+      },
+      table: {
+        category: fragment.category,
+        type: {
+          summary: fragment.type
+        }
       }
     };
 

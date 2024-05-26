@@ -1,6 +1,6 @@
 {
   "name": "@gouvfr/dsfr-kit",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "outils internes transverses pour les projets DSFR",
   "author": "Service d'Information du Gouvernement <maxime.beaugrand@pm.gouv.fr>",
   "license": "SEE LICENSE IN LICENSE.md",
