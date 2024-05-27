@@ -10,7 +10,7 @@ const Types = {
 export const vSchemaToDefineProps = (schema) => {
   const props = {};
   const required = schema.required || [];
-  Object.entries(schema.properties).forEach(([key, fragment]) => {
+  Object.entries(schema.props).forEach(([key, fragment]) => {
     const prop = {
       type: Types[fragment.type]
     };

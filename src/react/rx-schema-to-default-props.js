@@ -1,6 +1,6 @@
 export const rxSchemaToDefaultProps = (schema) => {
   const defaultProps = {};
-  Object.entries(schema.properties).forEach(([key, fragment]) => {
+  Object.entries(schema.props).forEach(([key, fragment]) => {
     if (fragment.default !== undefined) {
       defaultProps[key] = fragment.default;
     }

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 export const rxSchemaToPropTypes = (schema) => {
   const propTypes = {};
-  Object.entries(schema.properties).forEach(([key, fragment]) => {
+  Object.entries(schema.props).forEach(([key, fragment]) => {
 
     const isRequired = schema?.required?.includes(key);
 
