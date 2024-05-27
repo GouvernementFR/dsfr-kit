@@ -83,9 +83,9 @@ class Model {
     this._internals.state = STATE.NORMALIZATION;
     const normalisedProps = {};
     let warning = '';
-    const schemaProperties = this.schema.properties;
+    const schemaProps = this.schema.props;
     const required = this.schema.required || [];
-    Object.entries(schemaProperties).forEach(([key, spec]) => {
+    Object.entries(schemaProps).forEach(([key, spec]) => {
       const value = props[key];
       let isDefined = true;
       const isRequired = required.includes(key);
