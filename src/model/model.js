@@ -262,15 +262,14 @@ class Model {
   }
 
   static get schema () {
-    return this._schema;
+    return Model._schema;
+  }
 
+  static registerSchema (schema) {
+    Model._schema = schemas.getSchema(schema);
   }
 }
 
 Model.Context = ModelContext;
-
-Model.registerSchema = (schema) => {
-  Model._schema = schemas.getSchema(schema);
-};
 
 export { Model };
