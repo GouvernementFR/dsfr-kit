@@ -1,5 +1,11 @@
 import { deepFreeze } from '../utility/index.js';
 
+const mergeElement = (element, extension) => {
+  const attributes = [ ...(extension?.attributes ?? []), ...(element?.attributes ?? [])].filter((attr, index, self) => self.findIndex(a => a.name === attr.name) === index);
+  const properties = [...(extension?.properties ?? []), ...(element?.properties ?? [])].filter((prop, index, self) => self.findIndex(p => p.name === prop.name) === index);
+  return { attributes, properties };
+}
+
 class Schemas {
   constructor() {
     this._schemas = {};
@@ -14,7 +20,16 @@ class Schemas {
         if (!extension) {
           throw new Error(`Schema not found: ${schema.$ref}`);
         }
-        copy.properties = { ...extension.properties, ...copy.properties };
+        copy.props = { ...extension.props, ...copy.props};
+        copy.element = mergeElement(extension.element, copy.element);
+
+        const keys = [...Object.keys(copy.elements), Object.keys(extension.elements)].filter((key, index, self) => self.indexOf(key) === index);
+        if (keys.length > 0) {
+          copy.elements = {};
+          keys.forEach(key => {
+            copy.elements[key] = mergeElement(extension.elements[key], copy.elements[key]);
+          });
+        }
       }
       this._schemas[id] = deepFreeze(copy);
     }

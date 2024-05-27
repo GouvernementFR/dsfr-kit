@@ -3,7 +3,6 @@ import { schemaToArgs } from './schema-to-args.js';
 
 export const docStory = (component, schema) => {
   return {
-    tags: ['autodocs'],
     component: component,
     parameters: {
       docs: {

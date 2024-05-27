@@ -1,6 +1,7 @@
 import { deepFreeze } from '../utility';
 import { ModelContext } from './model-context.js';
 import { schemas } from './schemas.js';
+import ctxAttributes from './attributes.json';
 
 const STATE = {
   CONSTRUCTION: 0,
@@ -9,6 +10,49 @@ const STATE = {
   ASSIGNMENT: 3,
   PARSING: 4
 };
+
+class Element {
+  constructor (classes, attributes, properties, context) {
+    this._classes = classes;
+    this._attributes = deepFreeze({...attributes});
+    this._properties = properties;
+
+    this._classes = deepFreeze(classes);
+    this._className = classes.join(' ');
+
+    attributes.class = this._className;
+
+    this._props = {
+      ...properties,
+      attributes: {}
+    };
+
+    Object.entries(attributes).forEach(([key, value]) => {
+      const ctxKey = ctxAttributes[key]?.[context] ? ctxAttributes[key][context] : key;
+      this._props.attributes[ctxKey] = value;
+    });
+  }
+
+  get classes () {
+    return this._classes;
+  }
+
+  get className () {
+    return this._className;
+  }
+
+  get attributes () {
+    return this._attributes;
+  }
+
+  get properties () {
+    return this._properties;
+  }
+
+  get props () {
+    return this._props;
+  }
+}
 
 class Model {
   constructor (props, context = null) {
@@ -161,44 +205,56 @@ class Model {
     return normalisedProps;
   }
 
-  assign (props) {
+  assign (props, getters = {}) {
+    const properties = {}
+    Object.entries(getters).forEach(([key, value]) => {
+      properties[key] = {
+        value: value,
+        writable: false
+      };
+    });
+    Object.defineProperties(this, properties);
     this._internals.state = STATE.ASSIGNMENT;
   }
 
-  addProp (key, value) {
-    this._internals.props[key] = value;
-  }
+  parse (classes = [], attributes = {}, properties = {}, ...elementsArgs) {
+    const element = new Element(classes, attributes, properties, this._internals.context, this.schema.element);
+    this._internals.element = element;
 
-  parse (classes = [], attributes = {}) {
-    this._internals.state = STATE.PARSING;
-    classes = deepFreeze(classes);
-    this._internals.classes = classes;
-    const className = classes.join(' ');
-    this._internals.className = className;
-    this._internals.attributes = deepFreeze(attributes);
-
-    switch (this._internals.context) {
-      case ModelContext.REACT:
-        this._internals.props.attributes = { ...attributes, className: className };
-        break;
-
-      default:
-        this._internals.props.attributes = { ...attributes, class: className };
+    const length = ((elementsArgs.length + 2) / 3) | 0;
+    const elementsProps = {};
+    if (length > 0) {
+      const elements = {};
+      Object.entries(this.schema.elements).forEach(([key, elementSchema], index) => {
+        const args = elementsArgs.slice(index * 3, index * 3 + 3).push(this._internals.context, elementSchema);
+        const el = new Element(...args);
+        elements[key] = el;
+        elementsProps[key] = el.props;
+      });
     }
 
-    deepFreeze(this._internals.props);
+    this._internals.props = deepFreeze({
+      ...element.props,
+      ...elementsProps
+    });
+
+    this._internals.state = STATE.PARSING;
   }
 
   get classes () {
-    return this._internals.classes;
+    return this._internals.element.classes;
   }
 
   get className () {
-    return this._._internals.className;
+    return this._internals.element.className;
   }
 
   get attributes () {
-    return this._internals.attributes;
+    return this._internals.element.attributes;
+  }
+
+  get elements () {
+    return this._internals.elements;
   }
 
   get props () {

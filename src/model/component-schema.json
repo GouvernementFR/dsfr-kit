@@ -3,11 +3,15 @@
   "$id": "https://github.com/GouvernementFR/dsfr-kit/src/model/component-schema.json",
   "title": "Component",
   "type": "object",
-  "properties": {
+  "props": {
     "id": {
       "type": "string",
-      "description": "Identifiant unique du composant.",
-      "description@en-US": "The unique identifier of the component."
+      "description": "Une chaîne de caractères représentant l'id du composant.",
+      "description@en-US": "A string representing the id of the component."
     }
+  },
+  "element": {
+    "attributes": ["id", "class"],
+    "properties": ["innerHTML"]
   }
 }
