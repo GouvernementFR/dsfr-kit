@@ -21,14 +21,20 @@ class Schemas {
           throw new Error(`Schema not found: ${schema.$ref}`);
         }
         copy.props = { ...extension.props, ...copy.props};
-        copy.element = mergeElement(extension.element, copy.element);
 
-        const keys = [...Object.keys(copy.elements), Object.keys(extension.elements)].filter((key, index, self) => self.indexOf(key) === index);
-        if (keys.length > 0) {
-          copy.elements = {};
-          keys.forEach(key => {
-            copy.elements[key] = mergeElement(extension.elements[key], copy.elements[key]);
-          });
+        if (copy.element || extension.element) {
+          copy.element = mergeElement(extension.element, copy.element);
+        }
+
+        if (copy.elements || extension.elements) {
+          const keys = [...Object.keys(copy.elements ?? {}), Object.keys(extension.elements ?? {})].filter((key, index, self) => self.indexOf(key) === index);
+          if (keys.length > 0) {
+            const elements = {};
+            keys.forEach(key => {
+              elements[key] = mergeElement(extension.elements[key], copy.elements[key]);
+            });
+            copy.elements = elements;
+          }
         }
       }
       this._schemas[id] = deepFreeze(copy);
