@@ -1,6 +1,6 @@
 export const schemaToArgTypes = (schema) => {
   const argTypes = {};
-  Object.entries(schema.properties).forEach(([key, fragment]) => {
+  Object.entries(schema.props).forEach(([key, fragment]) => {
     const argType = {
       description: fragment.description,
       type: {
