@@ -1,8 +1,8 @@
 import { deepFreeze } from '../utility/index.js';
 
 const mergeElement = (element, extension) => {
-  const attributes = [ ...(extension?.attributes ?? []), ...(element?.attributes ?? [])].filter((attr, index, self) => self.findIndex(a => a.name === attr.name) === index);
-  const properties = [...(extension?.properties ?? []), ...(element?.properties ?? [])].filter((prop, index, self) => self.findIndex(p => p.name === prop.name) === index);
+  const attributes = [ ...(extension?.attributes ?? []), ...(element?.attributes ?? [])].filter((attr, index, self) => self.indexOf(attr) === index);
+  const properties = [...(extension?.properties ?? []), ...(element?.properties ?? [])].filter((prop, index, self) => self.indexOf(prop) === index);
   return { attributes, properties };
 }
 
