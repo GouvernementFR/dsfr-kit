@@ -1,1 +1,1 @@
-export * from './src/ng/index';
+export { ngGetProps, ngGetBoundAttributes } from './src/ng/index';
