@@ -18,8 +18,8 @@ declare interface Props extends Element {
     readonly elements?: Elements;
 }
 
-export declare class Model {
-    constructor (props: any, context: string);
+export declare interface Model {
+    constructor (props: any, context: string):any;
     init (props: any): any;
     assign (props: any, getters: any): any;
     parse (classes: Array<string>, attributes: any, properties: any, ...elementsArgs: any[]): any;
@@ -31,4 +31,4 @@ export declare class Model {
     readonly props: Props;
 }
 
-export declare class ComponentModel extends Model {}
+export declare interface ComponentModel extends Model {}
