@@ -23,7 +23,9 @@ class Schemas {
         copy.props = { ...extension.props, ...copy.props};
 
         if (copy.element || extension.element) {
+          console.log('element', copy.element, extension.element);
           copy.element = mergeElement(extension.element, copy.element);
+          console.log('copy.element', copy.element);
         }
 
         if (copy.elements || extension.elements) {
