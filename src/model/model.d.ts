@@ -1,5 +1,3 @@
-import {Elements} from "./index";
-
 declare interface ModelAttributes {
     readonly id?: string | undefined;
     readonly 'class'?: string | undefined
@@ -32,7 +30,7 @@ export class Model {
     get classes(): any;
     get className(): any;
     get attributes(): any;
-    get elements(): Elements;
+    get elements(): ModelElements;
     get props(): Props;
 }
 export namespace Model {
