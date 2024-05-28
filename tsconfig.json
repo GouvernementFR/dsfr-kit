@@ -11,6 +11,7 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "emitDeclarationOnly": true,
+    "resolveJsonModule": true,
     "esModuleInterop": true,
     "sourceMap": true,
     "experimentalDecorators": true,
