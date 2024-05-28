@@ -14,7 +14,7 @@ declare interface ModelElements {
     readonly [key: string]: ModelElement;
 }
 
-declare interface Props extends ModelElement {
+export declare interface Props extends ModelElement {
     readonly elements?: ModelElements;
 }
 
