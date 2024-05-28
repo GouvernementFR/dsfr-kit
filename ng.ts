@@ -1,1 +1,1 @@
-export * from './src/ng';
+export * from './src/ng/index';
