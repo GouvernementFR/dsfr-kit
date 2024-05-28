@@ -1,4 +1,4 @@
-import { Model as ModelInterface, ComponentModel as ComponentModelInterface } from './src/model/index';
+import { Model as ModelInterface, ComponentModel as ComponentModelInterface, ModelContext as ModelContextInterface } from './src/model/index';
 
 declare module '@gouvfr/dsfr-kit' {
   export function schemaToArgTypes(schema: any): any;
@@ -7,6 +7,7 @@ declare module '@gouvfr/dsfr-kit' {
   export function deepFreeze(obj: any): any;
   export type Model = ModelInterface;
   export type ComponentModel = ComponentModelInterface;
+  export type ModelContext = ModelContextInterface;
 }
 
 declare module '@gouvfr/dsfr-kit/react' {

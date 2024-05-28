@@ -32,3 +32,7 @@ export declare interface Model {
 }
 
 export declare interface ComponentModel extends Model {}
+
+export declare interface ModelContext {
+    readonly [key: string]: string;
+}
