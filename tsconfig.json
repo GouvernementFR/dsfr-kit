@@ -4,7 +4,6 @@
   "compileOnSave": false,
   "compilerOptions": {
     "allowJs": true,
-    "outDir": "./types",
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
